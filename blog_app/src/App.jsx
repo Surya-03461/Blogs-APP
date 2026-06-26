@@ -7,7 +7,7 @@ import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 
 function App() {
-  const [loading,setLoading] = useState(false)//initially application is loading by default
+  const [loading,setLoading] = useState(true)//initially application is loading by default
   const dispatch = useDispatch()
 
   useEffect(() => {
