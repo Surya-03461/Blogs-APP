@@ -57,7 +57,7 @@ function Header() {
               ) : null
             )}
 
-          //if 1st is true then display first one
+          //if 1st is true then display other's one
           {authstatus && (<li>
               <LogoutBtn/>
             </li>)}

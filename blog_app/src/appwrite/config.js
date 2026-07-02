@@ -82,7 +82,6 @@ export class Service{
             console.log("Appwrite service :: createPost :: error",error)
             return false;
         }
-
     }
     
     //indexes ke throgh query lagegi
