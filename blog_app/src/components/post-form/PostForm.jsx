@@ -71,52 +71,82 @@ export default function PostForm({ post }) {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
-                <Input
-                    label="Title :"
-                    placeholder="Title"
-                    className="mb-4"
-                    {...register("title", { required: true })}
-                />
-                <Input
-                    label="Slug :"
-                    placeholder="Slug"
-                    className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                    }}
-                />
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+  <div className="max-w-7xl mx-auto py-10 px-4">
+    <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-gray-200">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+        {post ? "✏️ Update Blog" : "📝 Create New Blog"}
+      </h1>
+
+      <form
+        onSubmit={handleSubmit(submit)}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+      >
+        {/* Left Section */}
+        <div className="lg:col-span-2 space-y-6">
+          <Input
+            label="Title"
+            placeholder="Enter blog title..."
+            {...register("title", { required: true })}
+          />
+
+          <Input
+            label="Slug"
+            placeholder="blog-title"
+            {...register("slug", { required: true })}
+            onInput={(e) =>
+              setValue("slug", slugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              })
+            }
+          />
+
+          <RTE
+            label="Content"
+            name="content"
+            control={control}
+            defaultValue={getValues("content")}
+          />
+        </div>
+
+        {/* Right Section */}
+        <div className="space-y-6">
+          <Input
+            label="Featured Image"
+            type="file"
+            accept="image/png,image/jpg,image/jpeg,image/gif"
+            {...register("image", { required: !post })}
+          />
+
+          {post && (
+            <div className="overflow-hidden rounded-2xl shadow-lg border">
+              <img
+                src={appwriteService.getFilePreview(post.featuredImage)}
+                alt={post.title}
+                className="w-full h-60 object-cover hover:scale-105 transition duration-500"
+              />
             </div>
-            <div className="w-1/3 px-2">
-                <Input
-                    label="Featured Image :"
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
-                />
-                {post && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
-                    </div>
-                )}
-                <Select
-                    options={["active", "inactive"]}
-                    label="Status"
-                    className="mb-4"
-                    {...register("status", { required: true })}
-                />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Update" : "Submit"}
-                </Button>
-            </div>
-        </form>
-    );
+          )}
+
+          <Select
+            options={["active", "inactive"]}
+            label="Status"
+            {...register("status", { required: true })}
+          />
+
+          <Button
+            type="submit"
+            className="w-full py-3 rounded-xl text-lg font-semibold transition duration-300 hover:scale-105"
+            bgColor={
+              post
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-blue-600 hover:bg-blue-700"
+            }
+          >
+            {post ? "Update Post" : "Publish Post"}
+          </Button>
+        </div>
+      </form>
+    </div>
+  </div>
+);
 }

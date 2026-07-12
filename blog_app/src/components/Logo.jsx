@@ -1,9 +1,9 @@
 import React from 'react'
-import bogsLogo from "../assets/bogsLogo.png";
+import BloggyLogo from '../assets/BloggyLogo.png'
 
 function Logo({width = '100px'}) {
   return (
-    <div><img src={bogsLogo}
+    <div><img src={BloggyLogo}
     alt="ChaiBlog Logo"
     className="h-16 w-22 rounded-full object-cover shadow-md"></img></div>
   )

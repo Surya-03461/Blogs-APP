@@ -3,7 +3,7 @@ import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Service{
     client = new Client();
-    databases;
+    databases; 
     bucket;
     
     constructor(){
@@ -87,7 +87,6 @@ export class Service{
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
-                
 
             )
         } catch (error) {
@@ -97,7 +96,6 @@ export class Service{
     }
 
     // file upload service
-
     async uploadFile(file){
         try {
             return await this.bucket.createFile(
